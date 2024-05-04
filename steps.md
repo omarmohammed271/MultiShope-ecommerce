@@ -12,3 +12,6 @@ accounts:
         -phone
         -address    
 
+Signals  
+    -pre_save
+    -post_save
