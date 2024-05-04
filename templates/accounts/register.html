@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block body %}
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f2f2f2;
+        text-align: center;
+    }
+    .login-container {
+        width: 300px;
+        margin: 100px auto;
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    input {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+    button {
+        width: 100%;
+        padding: 10px;
+        background-color: #f5830a;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+</style>
+</head>
+<body>
+<div class="login-container">
+    <h2>Sign-up</h2>
+    <form method="POST">
+        {% csrf_token %}
+        <input type="text" placeholder="Email" name='email' required>
+        <input type="password" placeholder="Password"  name='password1' required>
+        <input type="password" placeholder="Confirm Password"  name='password2' required>
+        <button type="submit">Sign-up</button>
+    </form>
+    <p><a href="">Have an account just login</a></p>
+    
+</div>
+</body>
+{% endblock body %}
