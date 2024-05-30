@@ -1,4 +1,4 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import render,redirect,get_object_or_404
 from django.contrib.auth.models import User
 from django.http import HttpResponse
 from django.core.mail import send_mail
@@ -61,3 +61,23 @@ def forget_password(request):
         return redirect('accounts:reset_password')
 
     return render(request,'accounts/forget_password.html')
+
+def reset_password(request):
+    if request.method == 'POST':
+        email = request.POST.get('email')
+        old_password = request.POST.get('old_password')
+        new_password = request.POST.get('new_password')
+        confirm_password = request.POST.get('confirm_password')
+
+        if new_password != confirm_password:
+            raise 'Invalid Password'
+        user = get_object_or_404(User,email=email)
+        user.set_password(new_password)
+        user.save()
+        # user_exist = User.objects.filter(email=email).first()
+        # if user_exist:
+        #     user = User.objects.get(email=email)
+        #     user.set_password(new_password)
+        #     user.save()
+
+    return render(request,'accounts/reste_password.html')
