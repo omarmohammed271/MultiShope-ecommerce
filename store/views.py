@@ -16,4 +16,13 @@ def store(request):
 
 def product_detail(request,category_slug,slug):
     product = get_object_or_404(Product,category__slug=category_slug,slug=slug)
-    return render(request,'store/product_detail.html')
+    images = ImageProducts.objects.filter(product=product)
+    sizes = product.size.all() #Many to many
+    colors = product.color.all()
+    context = {
+        'product':product,
+        'images':images,
+        'sizes': sizes,
+        'colors':colors,
+    }
+    return render(request,'store/product_detail.html',context)
