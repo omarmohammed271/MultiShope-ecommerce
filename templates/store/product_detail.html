@@ -47,7 +47,7 @@
         </div>
     </div>
 
-    <form  method="POST">
+    <form action={% url "cart:add_cart" product.slug %}  method="POST">
         {% csrf_token %}
         <div class="product-info">
             <h2>{{product}}</h2>
@@ -69,11 +69,11 @@
 
             <div class="quantity-buttons">
                 <button class="btn btn-secondary btn-minus">-</button>
-                <input type="number" id="quantityInput" value="1" min="1">
+                <input type="number" id="quantityInput" value="1" min="1" name="quantity">
                 <button class="btn btn-secondary btn-plus">+</button>
             </div>
 
-            <button class="btn btn-primary">Add To Cart</button>
+            <button type="submit" class="btn btn-primary">Add To Cart</button>
         
             <p>Share on: 
                 <a href="#" class="social-icon"><i class="fab fa-facebook"></i></a>
