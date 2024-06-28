@@ -47,40 +47,42 @@
         </div>
     </div>
 
-    <div class="product-info">
-        <h2>{{product}}</h2>
-        <p>★★★★★ (99 Reviews)</p>
-        <p class="price">${{product.price}}</p>
-         
-        {% for size in sizes %}
-                    <div class="custom-control custom-radio custom-control-inline">
-                        <input type="radio" class="custom-control-input" id="size-{{forloop.counter}}" name="size" value="{{ size }}">
-                        <label class="custom-control-label" for="size-{{forloop.counter}}">{{ size }}</label>
-                    </div>
-                    {% endfor %} <br>
-                 
-        {% for color in colors %}
-                    <div class="custom-control custom-radio custom-control-inline">
-                        <input type="radio" class="custom-control-input" id="color-{{forloop.counter}}" name="color" value="{{ color }}">
-                        <label class="custom-control-label" for="color-{{forloop.counter}}">{{ color }}</label>
-                    </div>
-                    {% endfor %}
+    <form  method="POST">
+        {% csrf_token %}
+        <div class="product-info">
+            <h2>{{product}}</h2>
+            <p>★★★★★ (99 Reviews)</p>
+            <p class="price">${{product.price}}</p>
+            {% for size in sizes %}
+                        <div class="custom-control custom-radio custom-control-inline">
+                            <input type="radio" class="custom-control-input" id="size-{{forloop.counter}}" name="size" value="{{ size }}">
+                            <label class="custom-control-label" for="size-{{forloop.counter}}">{{ size }}</label>
+                        </div>
+                        {% endfor %} <br>
+                    
+            {% for color in colors %}
+                        <div class="custom-control custom-radio custom-control-inline">
+                            <input type="radio" class="custom-control-input" id="color-{{forloop.counter}}" name="color" value="{{ color }}">
+                            <label class="custom-control-label" for="color-{{forloop.counter}}">{{ color }}</label>
+                        </div>
+                        {% endfor %}
 
-        <div class="quantity-buttons">
-            <button class="btn btn-secondary btn-minus">-</button>
-            <input type="number" id="quantityInput" value="1" min="1">
-            <button class="btn btn-secondary btn-plus">+</button>
+            <div class="quantity-buttons">
+                <button class="btn btn-secondary btn-minus">-</button>
+                <input type="number" id="quantityInput" value="1" min="1">
+                <button class="btn btn-secondary btn-plus">+</button>
+            </div>
+
+            <button class="btn btn-primary">Add To Cart</button>
+        
+            <p>Share on: 
+                <a href="#" class="social-icon"><i class="fab fa-facebook"></i></a>
+                <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+                <a href="#" class="social-icon"><i class="fab fa-pinterest-p"></i></a>
+            </p>
         </div>
-
-        <button class="btn btn-primary">Add To Cart</button>
-
-        <p>Share on: 
-            <a href="#" class="social-icon"><i class="fab fa-facebook"></i></a>
-            <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
-            <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
-            <a href="#" class="social-icon"><i class="fab fa-pinterest-p"></i></a>
-        </p>
-    </div>
+    </form>
 </div>
 
 <script>
