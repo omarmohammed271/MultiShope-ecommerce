@@ -8,3 +8,4 @@ class ProfileAdmin(admin.ModelAdmin):
     list_display = ['user','phone','address1','address2']
 
 
+

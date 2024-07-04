@@ -5,3 +5,4 @@ from .models import CartItem
 @admin.register(CartItem)
 class CartItemAdmin(admin.ModelAdmin):
     list_display = 'user','product','size','color','quantity','sub_total','total'
+    list_filter = 'user',

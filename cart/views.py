@@ -5,7 +5,7 @@ from .models import CartItem
 from store.models import Product
 # Create your views here.
 ## Add Product to cart
-
+@login_required(login_url='accounts:login')
 def add_cart(request,slug=None):
     user = request.user
     product = get_object_or_404(Product,slug=slug)
@@ -31,6 +31,18 @@ def add_cart(request,slug=None):
 
 
 
+@login_required(login_url='accounts:login')
 def cart(request):
+    user = request.user
+    items = CartItem.objects.filter(user=user)
+    total = [item.total for item in items][0]
+    shipping = total * 0.10
+    grand_total = shipping + total
 
-    return render(request,'cart/cart.html')
+    context = {
+        'items':items,
+        'total':total,
+        'shipping':shipping,
+        'grand_total':grand_total,
+    }
+    return render(request,'cart/cart.html',context)
