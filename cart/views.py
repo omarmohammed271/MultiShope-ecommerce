@@ -29,7 +29,12 @@ def add_cart(request,slug=None):
         item.save()
         return redirect('cart:cart')
 
-
+def remove(request,product_id,item_id):
+    user = request.user
+    product = Product.objects.get(id=product_id)
+    item = CartItem.objects.get(user=user,product=product,id=item_id)
+    item.delete()
+    return redirect('cart:cart')
 
 @login_required(login_url='accounts:login')
 def cart(request):
