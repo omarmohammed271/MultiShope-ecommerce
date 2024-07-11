@@ -1,7 +1,7 @@
 from django.shortcuts import render,get_object_or_404,redirect
 from django.contrib.auth.decorators import login_required
 
-from .models import CartItem
+from .models import CartItem,Coupon
 from store.models import Product
 # Create your views here.
 ## Add Product to cart
@@ -37,17 +37,27 @@ def remove(request,product_id,item_id):
     return redirect('cart:cart')
 
 @login_required(login_url='accounts:login')
-def cart(request):
+def cart(request,discount=0):
     user = request.user
     items = CartItem.objects.filter(user=user)
     total = [item.total for item in items][0]
+    if request.method == 'POST':
+        code = request.POST.get('code')
+        if code:
+            coupon = Coupon.objects.filter(code=code,active=True).first()
+            if not coupon:
+                raise "Coupon is Expired"
+            ratio = coupon.discount / 100
+            discount = total * ratio
+
     shipping = total * 0.10
-    grand_total = shipping + total
+    grand_total = shipping + (total-discount)
 
     context = {
         'items':items,
         'total':total,
         'shipping':shipping,
         'grand_total':grand_total,
+        'discount' : discount,
     }
     return render(request,'cart/cart.html',context)
