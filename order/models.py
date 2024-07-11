@@ -24,7 +24,7 @@ class OrderProduct(models.Model):
     order = models.ForeignKey(Order, on_delete=models.CASCADE)
     order_details = models.TextField()
     total = models.FloatField()
-    discount = models.FloatField()
+    discount = models.FloatField(blank=True,null=True)
     shipping = models.FloatField()
     grand_total = models.FloatField()
     created_at = models.DateTimeField(auto_now_add=True)

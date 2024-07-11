@@ -37,10 +37,13 @@ def remove(request,product_id,item_id):
     return redirect('cart:cart')
 
 @login_required(login_url='accounts:login')
-def cart(request,discount=0):
+def cart(request,discount=0,total=0):
     user = request.user
     items = CartItem.objects.filter(user=user)
-    total = [item.total for item in items][0]
+    try:
+        total = [item.total for item in items][0]
+    except:
+        pass    
     if request.method == 'POST':
         code = request.POST.get('code')
         if code:
